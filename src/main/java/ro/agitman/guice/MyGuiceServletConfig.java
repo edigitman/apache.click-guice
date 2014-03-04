@@ -13,5 +13,4 @@ public class MyGuiceServletConfig extends GuiceServletContextListener {
 	protected Injector getInjector() {
 		return Guice.createInjector(new MyServletModule());
 	}
-
 }
