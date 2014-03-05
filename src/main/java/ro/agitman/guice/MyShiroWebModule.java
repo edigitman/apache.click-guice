@@ -6,7 +6,10 @@ import org.apache.shiro.config.Ini;
 import org.apache.shiro.guice.web.ShiroWebModule;
 import org.apache.shiro.realm.text.IniRealm;
 
+import ro.agitman.security.MongoRealm;
+
 import com.google.inject.Provides;
+import com.google.inject.name.Names;
 
 public class MyShiroWebModule extends ShiroWebModule {
 
@@ -16,16 +19,21 @@ public class MyShiroWebModule extends ShiroWebModule {
 
 	@Override
 	protected void configureShiroWeb() {
+		bindConstant().annotatedWith(Names.named("shiro.loginUrl")).to("/index.htm");
+		bindConstant().annotatedWith(Names.named("shiro.successUrl")).to("/home.htm");
+		bindConstant().annotatedWith(Names.named("shiro.redirectUrl")).to("/index.htm");
+
+		bindRealm().to(MongoRealm.class).asEagerSingleton();
+
 		try {
 			bindRealm().toConstructor(IniRealm.class.getConstructor(Ini.class));
 		} catch (NoSuchMethodException e) {
 			addError(e);
 		}
 
-		addFilterChain("/public/**", ANON);
-		addFilterChain("/stuff/allowed/**", AUTHC_BASIC, config(PERMS, "yes"));
-		addFilterChain("/stuff/forbidden/**", AUTHC_BASIC, config(PERMS, "no"));
-		addFilterChain("/**", AUTHC_BASIC);
+		addFilterChain("/logout", LOGOUT);
+		addFilterChain("/home.htm", AUTHC);
+		addFilterChain("/index.htm", AUTHC);
 	}
 
 	@Provides
