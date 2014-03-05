@@ -1,5 +1,8 @@
 package ro.agitman.guice;
 
+import org.apache.shiro.guice.web.GuiceShiroFilter;
+import org.apache.shiro.guice.web.ShiroWebModule;
+
 import ro.agitman.model.dao.UserDao;
 import ro.agitman.model.dao.impl.UserDaoImpl;
 import ro.agitman.service.UserService;
@@ -21,6 +24,9 @@ public class MyServletModule extends ServletModule {
 
 		// mapped dao
 		bind(UserDao.class).to(UserDaoImpl.class);
-	}
 
+		ShiroWebModule.bindGuiceFilter(binder());
+
+		filter("/*").through(GuiceShiroFilter.class);
+	}
 }
