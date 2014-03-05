@@ -22,6 +22,6 @@ public class MyGuiceServletConfig extends GuiceServletContextListener {
 	}
 
 	protected Injector getInjector() {
-		return Guice.createInjector(new MyServletModule(), new MyShiroWebModule(context));
+		return Guice.createInjector(new MyServletModule(), new MyShiroWebModule(this.context));
 	}
 }
