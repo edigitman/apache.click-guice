@@ -16,6 +16,9 @@ public class User {
 	private String password;
 	private Set<String> roles = new HashSet<>();
 
+	public User() {
+	}
+
 	public User(String name, String password, Set<String> roles) {
 		super();
 		this.name = name;
