@@ -40,3 +40,7 @@ h3.title {
 #form-fields tr.fields{
     vertical-align: top;
 }
+
+#form_periodFs-fields{
+	margin-left: 50px;
+}
