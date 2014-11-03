@@ -19,9 +19,9 @@ public class MyShiroWebModule extends ShiroWebModule {
 
 	@Override
 	protected void configureShiroWeb() {
-		bindConstant().annotatedWith(Names.named("shiro.loginUrl")).to("/index.htm");
-		bindConstant().annotatedWith(Names.named("shiro.successUrl")).to("/home.htm");
-		bindConstant().annotatedWith(Names.named("shiro.redirectUrl")).to("/index.htm");
+		bindConstant().annotatedWith(Names.named("shiro.loginUrl")).to("/login.htm");
+		bindConstant().annotatedWith(Names.named("shiro.successUrl")).to("/register.htm");
+		bindConstant().annotatedWith(Names.named("shiro.redirectUrl")).to("/login.htm");
 
 		bindRealm().to(MongoRealm.class).asEagerSingleton();
 
@@ -32,8 +32,8 @@ public class MyShiroWebModule extends ShiroWebModule {
 		}
 
 		addFilterChain("/logout", LOGOUT);
-		addFilterChain("/home.htm", AUTHC);
-		addFilterChain("/index.htm", AUTHC);
+//		addFilterChain("/register.htm", AUTHC);
+//		addFilterChain("/login.htm", AUTHC);
 	}
 
 	@Provides
